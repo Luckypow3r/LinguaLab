@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaLab - Aprenda Idiomas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .hero {
+            padding-top: 120px;
+            padding-bottom: 80px;
+            text-align: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+                        url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #34495e;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
+
+        .features {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .feature-card p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            padding: 40px;
+            max-width: 1200px;
+            border-radius: 20px;
+            position: relative;
+            animation: modalOpen 0.3s ease-out;
+        }
+
+        /* Estilos para o Modal de Pagamento */
+        .payment-modal .modal-content {
+            background: linear-gradient(135deg, #e6f3ff 0%, #ffffff 100%);
+            max-width: 800px;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .payment-option {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.2);
+        }
+
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+
+        .payment-option h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .payment-option p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .payment-button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .payment-button:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes modalOpen {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 30px;
+            color: #2c3e50;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: #e9ecef;
+            transform: rotate(90deg);
+        }
+
+        .cartoons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .cartoon-item {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .cartoon-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .cartoon-item img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cartoon-item h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .cartoon-item p {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        #metodologia {
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cartoons-grid, .payment-options {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">LinguaLab</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Aprenda Idiomas de Uma Forma Diferente</h1>
+            <p>Descubra um novo mundo de possibilidades através do aprendizado de idiomas. 
+               Nossa metodologia única combina tecnologia, prática e diversão para tornar seu aprendizado mais efetivo.</p>
+            <a href="#" class="cta-button" onclick="openPaymentModal()">Comece Agora</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-grid">
+            <div id="metodologia" class="feature-card" onclick="openModal()">
+                <h3>Metodologia Inovadora</h3>
+                <p>Aprenda com técnicas modernas baseadas em ciência cognitiva e gamificação. Clique para saber mais!</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Professores Nativos</h3>
+                <p>Pratique com professores nativos e desenvolva fluência natural no idioma.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Flexibilidade Total</h3>
+                <p>Estude no seu próprio ritmo, quando e onde quiser, com aulas disponíveis 24/7.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Metodologia -->
+    <div id="metodologiaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('metodologiaModal')">&times;</span>
+            
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">Nossa Metodologia Inovadora</h2>
+            
+            <div class="cartoons-grid">
+                <div class="cartoon-item">
+                    <img src="https://3.bp.blogspot.com/-595vTOWdunM/UBgY02DFTvI/AAAAAAAAAC8/ip0_325EJNI/s1600/apenas+um+show.jpg" alt="Regular Show">
+                    <h4>Aprendizado Natural</h4>
+                    <p>Como Mordecai e Rigby, transformamos situações cotidianas em aventuras linguísticas divertidas, ajudando você a aprender de forma natural e espontânea.</p>
+                </div>
+                
+                <div class="cartoon-item">
+                    <img src="https://bubblegeek.com.br/media/o-incrivel-mundo-de-gumball.jpg" alt="The Amazing World of Gumball">
+                    <h4>Diversidade Cultural</h4>
+                    <p>Assim como o incrível mundo de Gumball, nosso método abraça a diversidade de sotaques, expressões e culturas, proporcionando uma experiência de aprendizado completa.</p>
+                </div>
+                
+                <div class="cartoon-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo16OLsnCxVLu3aK5kQyQnQtL8PzeyaNSmyA&s" alt="Adventure Time">
+                    <h4>Criatividade sem Limites</h4>
+                    <p>Como Finn e Jake em Adventure Time, incentivamos você a explorar, criar e se aventurar no universo do novo idioma sem medo de errar.</p>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: #34495e;">
+                Nossa metodologia única utiliza elementos de desenhos animados populares para criar um ambiente de aprendizado 
+                envolvente e divertido. Através de situações familiares, humor e criatividade, você aprenderá naturalmente, 
+                mantendo a motivação e desenvolvendo uma conexão genuína com o idioma.
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal Pagamento -->
+    <div id="paymentModal" class="modal payment-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('paymentModal')">&times;</span>
+            
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">Escolha sua Forma de Pagamento</h2>
+            
+            <div class="payment-options">
+                <div class="payment-option">
+                    <div class="payment-icon">💳</div>
+                    <h4>Cartão de Crédito</h4>
+                    <p>Pague em até 12x sem juros<br>Todas as bandeiras aceitas</p>
+                    <a href="#" class="payment-button">Selecionar</a>
+                </div>
+                
+                <div class="payment-option">
+                    <div class="payment-icon">📱</div>
+                    <h4>PIX</h4>
+                    <p>Pagamento instantâneo<br>5% de desconto à vista</p>
+                    <a href="#" class="payment-button">Selecionar</a>
+                </div>
+                
+                <div class="payment-option">
+                    <div class="payment-icon">🌐</div>
+                    <h4>PayPal</h4>
+                    <p>Pagamento seguro<br>Proteção garantida</p>
+                    <a href="#" class="payment-button">Selecionar</a>
+                </div>
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: #34495e;">
+                Todas as formas de pagamento são processadas em ambiente seguro.<br>
+                Garantia de satisfação ou seu dinheiro de volta em até 7 dias.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('metodologiaModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openPaymentModal() {
+            document.getElementById('paymentModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fechar modal ao clicar fora dele
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal(event.target.id);
+            }
+        }
+
+        // Fechar modal com tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.getElementsByClassName('modal');
+                for (let modal of modals) {
+                    if (modal.style.display === 'block') {
+                        closeModal(modal.id);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
